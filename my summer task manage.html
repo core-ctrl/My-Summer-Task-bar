@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta name="theme-color" content="#0a0a0a"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Project H"/>
+<title>Project Harshitha</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased}
+:root{--bg:#080808;--card:#111;--card2:#161616;--b:#202020;--b2:#181818;--t:#efefef;--m:#555;--d:#2a2a2a;--w:#fff}
+html{font-size:16px}
+body{background:var(--bg);color:var(--t);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;min-height:100vh;overflow-x:hidden;padding-bottom:72px}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+input,select{font-family:inherit}
+*:focus-visible{outline:1px solid #555;outline-offset:2px}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--b);padding:16px 16px 12px}
+.hdr-inner{max-width:540px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start}
+.hdr-eye{font-size:8px;letter-spacing:5px;color:var(--m);margin-bottom:3px}
+.hdr-title{font-size:20px;font-weight:900;letter-spacing:-0.5px;color:var(--w);line-height:1}
+.hdr-sub{font-size:10px;color:var(--m);margin-top:4px}
+.hdr-stat{text-align:right}
+.hdr-num{font-size:26px;font-weight:900;color:var(--w);line-height:1}
+.hdr-lbl{font-size:8px;letter-spacing:3px;color:var(--m)}
+
+/* BOTTOM NAV */
+.nav{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;border-top:1px solid var(--b);display:flex;z-index:200;padding-bottom:env(safe-area-inset-bottom,0)}
+.nb{flex:1;padding:10px 2px 8px;background:none;border:none;color:var(--m);font-size:7px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color .15s}
+.nb.on{color:var(--w)}
+.nb svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* PAGE */
+.page{display:none;max-width:540px;margin:0 auto;padding:16px 14px 24px}
+.page.on{display:block;animation:fi .15s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* TYPOGRAPHY */
+.pg-title{font-size:18px;font-weight:800;color:var(--w);margin-bottom:3px}
+.pg-sub{font-size:11px;color:var(--m);font-style:italic;margin-bottom:20px}
+.sec-label{font-size:9px;font-weight:800;letter-spacing:4px;color:var(--m);text-transform:uppercase;margin-bottom:12px}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--b);border-radius:10px;padding:15px;margin-bottom:12px}
+.card-hi{border-color:#333}
+
+/* CHIPS */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.chip{padding:6px 13px;border:1px solid var(--b);color:var(--m);border-radius:99px;font-size:10px;font-weight:700;letter-spacing:1px;transition:all .15s}
+.chip.on{border-color:var(--w);background:var(--w);color:#000}
+
+/* CHECK ROW */
+.cr{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--b2);cursor:pointer;align-items:flex-start;user-select:none;-webkit-user-select:none}
+.cr:last-child{border-bottom:none}
+.cb{flex-shrink:0;width:18px;height:18px;border-radius:4px;border:1.5px solid #333;background:transparent;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:all .15s}
+.cb.on{background:var(--w);border-color:var(--w)}
+.cb.on::after{content:'✓';font-size:11px;color:#000;font-weight:900}
+.cl{font-size:13px;color:var(--t);line-height:1.5}
+.cl.done{color:#444;text-decoration:line-through}
+.cn{font-size:11px;color:#444;margin-top:2px;font-style:italic;line-height:1.4}
+
+/* BADGE */
+.badge{font-size:8px;font-weight:800;letter-spacing:2px;border:1px solid #333;padding:2px 7px;border-radius:2px;color:var(--m)}
+.badge-w{border-color:#555;color:var(--w)}
+
+/* DIVIDER */
+.dv{height:1px;background:var(--b);margin:14px 0}
+
+/* PROGRESS */
+.pb-wrap{background:#1c1c1c;border-radius:99px;height:4px;overflow:hidden;margin-top:6px}
+.pb{height:100%;background:var(--w);border-radius:99px;transition:width .5s}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{font-size:8px;letter-spacing:2px;font-weight:800;color:var(--m);padding:8px 6px;text-align:left;border-bottom:1px solid var(--b)}
+td{padding:9px 6px;border-bottom:1px solid var(--b2);color:var(--t);vertical-align:top;font-size:12px}
+tr:last-child td{border-bottom:none}
+
+/* INPUTS */
+input,select,textarea{background:#161616;border:1px solid var(--b);color:var(--t);padding:11px 13px;border-radius:8px;font-size:14px;width:100%;outline:none;-webkit-appearance:none;appearance:none}
+input:focus,select:focus{border-color:#444}
+.row-input{display:flex;gap:8px;margin-bottom:10px}
+.row-input input{flex:1}
+
+/* BUTTONS */
+.btn{padding:11px 20px;background:var(--w);color:#000;border:none;border-radius:8px;font-size:12px;font-weight:800;letter-spacing:1px}
+.btn:active{opacity:.8}
+.btn-ghost{background:transparent;border:1px solid var(--b);color:var(--m)}
+.btn-sm{padding:8px 14px;font-size:11px}
+
+/* MACRO GRID */
+.macro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.macro-box .mv{font-size:19px;font-weight:900;color:var(--w);line-height:1.1}
+.macro-box .mu{font-size:10px;color:var(--m)}
+.macro-box .ml{font-size:8px;letter-spacing:2px;color:var(--m);margin-bottom:4px}
+.macro-box .mt{font-size:10px;color:var(--m);margin-bottom:4px}
+
+/* MEAL LOG */
+.meal-row{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--b2);align-items:center}
+.meal-row:last-child{border-bottom:none}
+.meal-del{background:none;border:none;color:#444;font-size:18px;padding:0 2px;line-height:1;cursor:pointer}
+
+/* FORM GUIDE */
+.form-step{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--b2);align-items:flex-start}
+.step-num{width:24px;height:24px;border-radius:50%;border:1px solid #333;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--m);flex-shrink:0;margin-top:1px}
+.step-txt{font-size:13px;line-height:1.5;color:var(--t)}
+
+/* WEEK TIMELINE */
+.timeline{display:flex;overflow-x:auto;gap:0;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+.timeline::-webkit-scrollbar{display:none}
+.wk-dot{display:flex;flex-direction:column;align-items:center;min-width:70px;position:relative}
+.wk-dot::before{content:'';position:absolute;top:16px;left:50%;width:100%;height:1px;background:#222;z-index:0}
+.wk-dot:last-child::before{display:none}
+.wk-circle{width:32px;height:32px;border-radius:50%;border:1.5px solid #333;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--m);position:relative;z-index:1}
+.wk-circle.on{border-color:var(--w);background:var(--w);color:#000}
+.wk-label{font-size:8px;font-weight:800;color:var(--m);margin-top:5px;letter-spacing:1px}
+.wk-sub{font-size:8px;color:#333;margin-top:2px;text-align:center;max-width:65px;line-height:1.3}
+
+/* FOOD PICKER */
+.food-list{background:#161616;border:1px solid var(--b);border-radius:8px;max-height:200px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.food-item{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border-bottom:1px solid var(--b2);cursor:pointer}
+.food-item:last-child{border-bottom:none}
+.food-item:active{background:#1c1c1c}
+.food-name{font-size:13px;color:var(--t)}
+.food-info{font-size:11px;color:var(--m);text-align:right}
+
+/* SECTION HEADER */
+.sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.sh button{font-size:11px;color:#444;background:none;border:none;cursor:pointer}
+
+/* STARS / TAGS */
+.tag{font-size:8px;font-weight:800;letter-spacing:2px;border:1px solid #2a2a2a;padding:2px 7px;border-radius:2px;color:#555}
+
+/* AI result */
+.ai-box{background:#161616;border:1px solid #2a2a2a;border-radius:8px;padding:14px;margin-top:10px}
+.ai-box .ai-name{font-size:14px;font-weight:700;color:var(--w);margin-bottom:8px}
+.ai-macros{display:flex;gap:14px;font-size:12px;color:var(--m);flex-wrap:wrap;margin-bottom:10px}
+.ai-macros strong{color:var(--w)}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-inner">
+    <div>
+      <div class="hdr-eye">SUMMER 2026 · 8 WEEKS</div>
+      <div class="hdr-title">PROJECT HARSHITHA</div>
+      <div class="hdr-sub">Gym · Film · Tech · Diet</div>
+    </div>
+    <div class="hdr-stat">
+      <div class="hdr-num" id="total-done">0</div>
+      <div class="hdr-lbl">TASKS DONE</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 1 — ROADMAP
+═══════════════════════════════════════════ -->
+<div class="page on" id="p-roadmap">
+
+  <!-- Timeline -->
+  <div style="padding:16px 14px 0">
+    <div class="pg-title">MASTER ROADMAP</div>
+    <div class="pg-sub">8 weeks · Full gym throughout · Build everything</div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+
+  <div style="padding:0 14px 24px">
+    <!-- Strength Progression -->
+    <div class="card" style="margin-top:16px">
+      <div class="sec-label">POWERLIFTING PROGRESSION</div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr>
+            <th>WK</th><th>SQUAT</th><th>BENCH</th><th>DEAD</th><th>PHASE</th>
+          </tr></thead>
+          <tbody id="prog-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Form Guide -->
+    <div class="card">
+      <div class="sec-label">FORM GUIDES</div>
+      <div class="chips" id="form-chips"></div>
+      <div id="form-content"></div>
+    </div>
+
+    <!-- Rules -->
+    <div class="card">
+      <div class="sec-label">THE RULES</div>
+      <div id="rules-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 2 — FITNESS
+═══════════════════════════════════════════ -->
+<div class="page" id="p-fitness">
+  <div class="pg-title">FITNESS PLAN</div>
+  <div class="pg-sub">Full gym · Powerlifting + Aesthetics · 8 weeks progressive</div>
+  <div class="chips" id="day-chips"></div>
+  <div id="day-card"></div>
+  <div class="card" style="margin-top:14px">
+    <div class="sec-label" style="margin-bottom:10px">WEEK OVERVIEW</div>
+    <div id="week-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 3 — FILM
+═══════════════════════════════════════════ -->
+<div class="page" id="p-film">
+  <div class="pg-title">FILM ROADMAP</div>
+  <div class="pg-sub">Reels → Storytelling → Short Film</div>
+  <div class="chips" id="film-chips"></div>
+  <div id="film-card"></div>
+  <div class="card" style="margin-top:14px">
+    <div class="sec-label">ALL YOUTUBE CHANNELS</div>
+    <div id="yt-list"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 4 — TECH
+═══════════════════════════════════════════ -->
+<div class="page" id="p-tech">
+  <div class="pg-title">TECH ROADMAP</div>
+  <div class="pg-sub">Git → Full Stack → AI → Live Projects</div>
+  <div class="chips" id="tech-chips"></div>
+  <div id="tech-card"></div>
+  <div class="card" style="margin-top:14px">
+    <div class="sec-label">SKILLS MAP</div>
+    <div id="skills-list"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 5 — DIET
+═══════════════════════════════════════════ -->
+<div class="page" id="p-diet">
+  <div class="pg-title">DIET MANAGER</div>
+  <div class="pg-sub">Home food · Portion rules · AI calorie scan</div>
+
+  <!-- Macro progress -->
+  <div class="card card-hi">
+    <div class="sec-label">TODAY'S MACROS</div>
+    <div class="macro-grid" id="macro-display"></div>
+  </div>
+
+  <!-- Hostel rules -->
+  <div class="card">
+    <div class="sec-label">DAILY RULES (MEMORISE THIS)</div>
+    <div id="diet-rules"></div>
+  </div>
+
+  <!-- Add food -->
+  <div class="card card-hi">
+    <div class="sec-label" style="margin-bottom:12px">ADD FOOD</div>
+
+    <div class="chips" id="meal-type-chips"></div>
+
+    <input type="text" id="food-search" placeholder="Search: egg, rice, chicken..." autocomplete="off" style="margin-bottom:8px"/>
+    <div id="food-list-wrap"></div>
+
+    <div class="dv"></div>
+    <div class="sec-label" style="margin-bottom:10px">AI SCAN — TYPE ANYTHING</div>
+    <div class="row-input">
+      <input type="text" id="ai-input" placeholder="e.g. 2 chapati with dal fry"/>
+      <button class="btn btn-sm" onclick="doAI()">SCAN</button>
+    </div>
+    <div id="ai-result"></div>
+  </div>
+
+  <!-- Meal log -->
+  <div class="card" id="meal-log-card" style="display:none">
+    <div class="sh">
+      <div class="sec-label" style="margin-bottom:0">MEAL LOG</div>
+      <button onclick="clearMeals()">CLEAR ALL</button>
+    </div>
+    <div id="meal-log"></div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="nav" id="bottom-nav">
+  <button class="nb on" onclick="showPage('roadmap')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    MAP
+  </button>
+  <button class="nb" onclick="showPage('fitness')">
+    <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+    GYM
+  </button>
+  <button class="nb" onclick="showPage('film')">
+    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+    FILM
+  </button>
+  <button class="nb" onclick="showPage('tech')">
+    <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    TECH
+  </button>
+  <button class="nb" onclick="showPage('diet')">
+    <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
+    DIET
+  </button>
+</nav>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════════
+
+const PROG = [
+  {w:1,sq:'60kg',bench:'50kg',dead:'80kg',phase:'TECHNIQUE'},
+  {w:2,sq:'62.5kg',bench:'52.5kg',dead:'82.5kg',phase:'BASE BUILD'},
+  {w:3,sq:'65kg',bench:'55kg',dead:'85kg',phase:'BUILDING'},
+  {w:4,sq:'67.5kg',bench:'57.5kg',dead:'87.5kg',phase:'BUILDING'},
+  {w:5,sq:'DELOAD',bench:'DELOAD',dead:'DELOAD',phase:'DELOAD -20%'},
+  {w:6,sq:'72.5kg',bench:'62.5kg',dead:'92.5kg',phase:'PEAK'},
+  {w:7,sq:'75kg',bench:'65kg',dead:'95kg',phase:'PEAK'},
+  {w:8,sq:'78kg+',bench:'67.5kg+',dead:'97.5kg+',phase:'MAX TEST'},
+];
+
+const FORMS = {
+  'SQUAT':{
+    cues:[
+      ['Bar Position','Low bar: rest on rear delts, not neck. Grip just outside shoulder width.'],
+      ['Stance','Shoulder-width or slightly wider. Toes out 30°.'],
+      ['Brace','Big breath, brace core hard like taking a punch. Hold throughout.'],
+      ['Descent','Sit DOWN not back. Chest up, knees track toes. Control the descent.'],
+      ['Depth','Break parallel — hip crease below knee top. Full depth.'],
+      ['Drive','Push floor away. Lead with chest, keep hips and shoulders rising together.'],
+      ['Common Error','If it turns into a good morning = weight too heavy or hips rise first.'],
+    ],
+    prog:[
+      'Week 1-2: Empty bar or 50% max — perfect every rep, film yourself',
+      'Week 3+: Add 2.5kg per session if form holds',
+      'Miss depth consistently → drop weight, fix it',
+    ]
+  },
+  'BENCH':{
+    cues:[
+      ['Setup','Feet flat on floor. Slight arch. Shoulder blades squeezed together and DOWN.'],
+      ['Grip','Slightly wider than shoulder width. Wrists straight, bar in heel of palm.'],
+      ['Unrack','Full arm extension, bar over shoulders first, then move to chest.'],
+      ['Descent','Bar to lower chest / upper abs. Elbows 45-75° from body (not flared).'],
+      ['Touch','Light touch to chest — no bounce. 1 sec pause to build strength.'],
+      ['Press','Drive bar back and slightly back toward rack. Leg drive through floor.'],
+      ['Breathe','Breathe in before descent, exhale on press. Never hold on heavy sets.'],
+    ],
+    prog:[
+      'Week 1: 50kg — perfect arch, stable shoulder setup every set',
+      'Week 2+: Add 2.5kg/week. Drop if bar path drifts.',
+      'Stall? Add paused reps 3×3 at 80% before main sets.',
+    ]
+  },
+  'DEADLIFT':{
+    cues:[
+      ['Bar Position','Bar over mid-foot (1 inch from shin). Feet hip-width.'],
+      ['Hip Hinge','Push hips back, NOT knees forward. Shoulders over bar.'],
+      ['Grip','Double overhand or mixed. Crush the bar. No straps until 100kg+.'],
+      ['Lats','Pull shoulder blades into back pockets. Lat spread keeps bar close.'],
+      ['Brace','Big breath, 360° brace. Create intra-abdominal pressure before pull.'],
+      ['Drive','Push floor away (leg press cue). Bar stays dragging up the shin.'],
+      ['Lockout','Drive hips through at top. Don\'t hyperextend — just stand tall.'],
+    ],
+    prog:[
+      'Week 1: 80kg — practice the set-up ritual every single rep',
+      'Add 2.5-5kg/week. Most people progress faster on dead than squat.',
+      'Back rounds at top = weight too heavy. Drop and reset.',
+    ]
+  },
+  'PULL-UPS':{
+    cues:[
+      ['Grip','Shoulder width, overhand (pronated). Full dead hang to start.'],
+      ['Initiate','Pull shoulder blades DOWN and together first — before arms bend.'],
+      ['Pull','Drive elbows down toward hips, not out to sides.'],
+      ['Chin','Get chin clearly over bar. Chest to bar is even better.'],
+      ['Lower','Full controlled descent. 2-3 seconds down. No kipping.'],
+      ['Dead Hang','Reset full dead hang each rep. Don\'t use bounce from previous rep.'],
+    ],
+    prog:[
+      'Can\'t do 1: Lat pulldown 4×10 + assisted pull-ups or negatives',
+      '1-3 reps: 5 sets of max reps, 3-4× per week. Add 1 rep/week.',
+      '5+ reps: Add weight with belt. 3-5 sets of 5 weighted.',
+      'Goal by Week 8: 8-10 clean reps or 3-5 weighted pull-ups',
+    ]
+  },
+  'PUSH-UPS':{
+    cues:[
+      ['Hands','Slightly wider than shoulders. Fingers forward or slight outward angle.'],
+      ['Body','Perfectly straight line — head, spine, hips, heels. No sagging hips.'],
+      ['Elbows','45° angle from body — not fully flared (90°) or fully tucked.'],
+      ['Descent','Chest touches or grazes floor. Full range every rep.'],
+      ['Press','Explosive up, controlled down. Think bench press with bodyweight.'],
+      ['Core','Actively squeeze glutes and abs throughout. Don\'t just survive.'],
+    ],
+    prog:[
+      'Can\'t do 10: Incline push-ups on bench. Progress to floor.',
+      '10-20 reps: 5 sets to failure. Add 2-3 reps per week.',
+      '20+ reps: Weighted (backpack), ring push-ups, archer push-ups.',
+      'Use as warm-up before bench — 2 sets of 15 to activate chest.',
+    ]
+  },
+};
+
+const DAYS = [
+  {day:'MON',label:'SQUAT DAY',type:'POWERLIFTING',
+   focus:'Quad + Posterior Chain — Strength Focus',
+   ex:[
+    ['Low Bar Squat','5×5','Main power lift. +2.5kg every week. Film your set every Monday.'],
+    ['Paused Squat','3×3','2 sec pause at bottom. Builds bottom-end strength.'],
+    ['Romanian Deadlift','4×8','Hamstring accessory. Hinge at hip, soft knee, feel the stretch.'],
+    ['Leg Press','3×12','Volume + quad aesthetic. Full range, don\'t lock out.'],
+    ['Leg Curl','3×12','Hamstring balance. Slow eccentric — 3 sec down.'],
+    ['Plank','3×45s','Core stability. Squeeze everything.'],
+    ['Vacuum Hold','3×20s','Daily waist tightening habit. Do this every morning too.'],
+   ],
+   cardio:'10 min walk warm-up only. Save legs for squats.'},
+  {day:'TUE',label:'BENCH DAY',type:'POWERLIFTING',
+   focus:'Chest + Push — Strength + Aesthetic Size',
+   ex:[
+    ['Flat Bench Press','5×5','Main power lift. Tight arch, leg drive, bar to lower chest.'],
+    ['Incline DB Press','4×10','Upper chest aesthetic. Most important chest lift for look.'],
+    ['Cable Fly / Pec Deck','3×15','Chest isolation + full stretch. Feel the pec working.'],
+    ['Overhead Press','3×8','Shoulder power base. Strict — no leg drive.'],
+    ['Lateral Raises','4×15','Most important aesthetic lift. Slight forward lean, lead with elbow.'],
+    ['Tricep Pushdown','3×12','Arm size + lockout strength.'],
+    ['Hanging Leg Raises','3×12','Core + abs. Full hang, controlled movement.'],
+   ],
+   cardio:'20 min easy jog after session.'},
+  {day:'WED',label:'DEADLIFT DAY',type:'POWERLIFTING',
+   focus:'Posterior Chain — Maximum Strength',
+   ex:[
+    ['Conventional Deadlift','5×5','King of all lifts. Set up ritual before every single rep.'],
+    ['Deficit Deadlift','3×3','Stand on 2 plates. Builds power off the floor.'],
+    ['Barbell Row','4×8','Back thickness. Bar to belly button. Don\'t just swing.'],
+    ['Pull-ups / Lat Pulldown','4×10','Back width for V-taper. Start pull-ups if you can.'],
+    ['Face Pulls','3×15','Rear delt health. Never skip — prevents shoulder injury.'],
+    ['Farmer Carries','3×30m','Grip + core + mental toughness.'],
+    ['Ab Wheel Rollout','3×10','Best core exercise. Full extension if you can.'],
+   ],
+   cardio:'No cardio today. Focus on recovery.'},
+  {day:'THU',label:'SHOULDER + BACK',type:'AESTHETICS',
+   focus:'Shoulder Width + V-Taper — The Look',
+   ex:[
+    ['Overhead Press','4×6','Strength base for shoulder size.'],
+    ['Arnold Press','3×10','Full shoulder sweep. Rotate as you press up.'],
+    ['Lateral Raises','5×15','Critical for width. 5 sets. No ego — feel the delt.'],
+    ['Rear Delt Fly','4×15','Posterior shoulder. Posture + look. Hinge forward.'],
+    ['Wide Grip Lat Pulldown','4×10','V-taper builder. Squeeze lats at bottom.'],
+    ['Seated Cable Row','3×12','Mid back detail. Chest up, full stretch forward.'],
+    ['Crunch + Leg Raise Circuit','3 rounds','Abs finisher. No rest between crunch and leg raise.'],
+   ],
+   cardio:'20 min incline treadmill walk.'},
+  {day:'FRI',label:'ARMS + VOLUME',type:'AESTHETICS',
+   focus:'Arms + Hypertrophy — Look Good Day',
+   ex:[
+    ['EZ Bar Curl','4×10','Bicep mass builder. Full extension at bottom.'],
+    ['Hammer Curl','3×12','Brachialis + forearm thickness. Slow and controlled.'],
+    ['Skull Crushers','4×10','Tricep long head mass. Lower slow, press fast.'],
+    ['Close Grip Bench','3×10','Tricep power + inner chest.'],
+    ['Cable Curl','3×15','Peak isolation. Supinate at top of every rep.'],
+    ['Overhead Tricep Extension','3×12','Long head stretch. Feel the stretch at bottom.'],
+    ['Hip Thrust','4×12','Glute aesthetic. Drive hips up fully. Squeeze at top.'],
+   ],
+   cardio:'30 min long easy jog. Conversational pace.'},
+  {day:'SAT',label:'FULL BODY STRENGTH',type:'POWERLIFTING',
+   focus:'Carry-over Day — Practice Main Lifts Light',
+   ex:[
+    ['Squat (70%)','4×6','Practice day. Focus on speed out of hole. Bar flies up.'],
+    ['Bench Press (70%)','4×6','Speed work. Fast press, controlled descent.'],
+    ['Deadlift (60%)','3×5','Technique reinforcement. Perfect set-up every rep.'],
+    ['Pull-ups','5×max','Max reps each set. Build toward 10 clean reps.'],
+    ['Push-ups','3×20','Weighted if easy. Activate chest before bench sessions.'],
+    ['Core Circuit','3 rounds','Plank 45s + leg raises 15 + vacuum 20s. Back to back.'],
+   ],
+   cardio:'20 min jog or skip. Your choice.'},
+  {day:'SUN',label:'REST + MOBILITY',type:'RECOVERY',
+   focus:'Recovery, Mobility, Mental Reset',
+   ex:[
+    ['Hip Flexor Stretch','3×60s each','Critical after heavy squat week. Couch stretch.'],
+    ['Chest + Lat Stretch','2×60s','Open compressed muscles from bench and rows.'],
+    ['Foam Rolling','10 min','Legs, back, glutes. Slow and deliberate.'],
+    ['Easy Walk','30-45 min','Blood flow. No intensity. Just move.'],
+    ['Vacuum Practice','5×20s','Do this every day. 1 minute total. Worth it.'],
+    ['Pull-up Bar Hang','3×30s','Decompress spine. Just hang. Feels amazing.'],
+   ],
+   cardio:'Optional 3km easy jog only if feeling genuinely good.'},
+];
+
+const FILM_WEEKS = [
+  {w:1,title:'Camera Confidence',goal:'Get comfortable in front of and behind camera',
+   tasks:['Learn Rule of Thirds — apply in every single shot','Natural lighting: window light, golden hour, blue hour','Shoot 5 reels: expressions, walking shots, mirror shots','Practice wide / medium / close-up shots','No story needed — just camera comfort this week'],
+   yt:[['StudioBinder','Cinematography Basics for Beginners'],['Film Riot','How to Make Videos Look Cinematic']],
+   deliver:'5 raw reels shot and saved'},
+  {w:2,title:'Editing Foundation',goal:'Clean cuts, audio, basic color grading',
+   tasks:['DaVinci Resolve: cuts, trims, transitions','Audio sync + balance techniques','Apply a basic color correction LUT to all footage','Re-edit 3 reels from Week 1 properly','Create 3 new cinematic edited reels'],
+   yt:[['Casey Faris','DaVinci Resolve Full Beginner Tutorial'],['MrAlexTech','Cinematic Color Grading in DaVinci']],
+   deliver:'3 cleanly edited cinematic reels'},
+  {w:3,title:'Cinematic Storytelling',goal:'Turn footage into emotional stories',
+   tasks:['Hook → Build → Resolution — internalize this','Show emotion through visuals not just dialogue','Shoot "Seen message" concept reel','Shoot "Unsent message" concept reel','Make 1 reel that tells a story without words'],
+   yt:[['Lessons from the Screenplay','How to Write a Scene'],['Tyler Mowery','How Great Films Tell Stories Visually']],
+   deliver:'3 story-based reels'},
+  {w:4,title:'Script + Acting',goal:'Write and perform your own scripts',
+   tasks:['3-act structure: setup → confrontation → resolution','Dialogue vs silence — when to use each','Write 2 scripts (30-40 sec each)','Shoot both scripts solo','Self-critique: write what works and what doesn\'t'],
+   yt:[['Just Write','How to Write Short Film Scripts'],['Film Courage','Acting for Non-Actors on Camera']],
+   deliver:'2 scripted short videos shot and edited'},
+  {w:5,title:'Premiere Pro Workflow',goal:'Faster, more powerful editing',
+   tasks:['Premiere Pro setup + keyboard shortcuts','Keyframes: position, scale, opacity animation','Speed ramping on action shots','Export settings for Instagram Reels + YouTube','Recreate 2 trending edits in Premiere Pro'],
+   yt:[['Premiere Gal','Premiere Pro Crash Course'],['Justin Odisho','Speed Ramp Effect Tutorial']],
+   deliver:'2 speed-ramped edited reels in Premiere'},
+  {w:6,title:'VFX + Creative Effects',goal:'Add visual creativity and polish',
+   tasks:['Masking technique — isolate subjects cleanly','Green screen basics if available','Glow + light leak effects','Animated text overlays','Make 2 VFX-enhanced reels'],
+   yt:[['Cinecom.net','VFX for Beginners No Budget'],['Surfaced Studio','Film Effects in Premiere Pro']],
+   deliver:'2 VFX-enhanced creative reels'},
+  {w:7,title:'Short Film Pre-Production',goal:'Plan your short film completely before shooting',
+   tasks:['Finalize short film script (2-5 minutes)','Create complete shot list for every scene','Scout and confirm all locations','Plan lighting setup for each scene','Create production schedule (what shoots when)'],
+   yt:[['Film Riot','How to Make a Short Film — Pre-Production'],['StudioBinder','Shot List Tutorial — Complete Guide']],
+   deliver:'Complete pre-production folder ready'},
+  {w:8,title:'SHOOT + EDIT Short Film',goal:'Execute everything — your first real short film',
+   tasks:['Shoot Day 1 — all primary scenes','Shoot Day 2 — pickups + close-ups','Rough cut edit (Day 3)','Color grade entire film (Day 4)','Sound design + music selection (Day 5)','Final export + share privately first'],
+   yt:[['D4Darious','How to Edit Your Short Film'],['Film Riot','Short Film Editing Masterclass']],
+   deliver:'COMPLETED SHORT FILM 🎬'},
+];
+
+const TECH_WEEKS = [
+  {w:1,title:'Git + REST API',
+   tasks:['Git: init, add, commit, push, branch, merge, pull request','GitHub: profile, README writing, first real repo','Node.js + Express: build Hello World API from scratch','REST: GET, POST, PUT, DELETE — understand all 4 deeply','Build: Notes CRUD API with Express + in-memory storage','Learn MVC pattern concept — why it matters','Solve 10 DSA problems (arrays + strings)'],
+   tools:['VS Code','GitHub','Node.js','Postman'],proj:'Movie Finder — add Git + clean repo structure'},
+  {w:2,title:'Auth + Database',
+   tasks:['JWT Authentication — build from scratch, understand the flow','bcrypt password hashing — understand WHY not just copy-paste','MongoDB Atlas setup + Mongoose connection','Database design: collections, schemas, relationships','Build: register, login, logout, protected routes','Input validation + proper error handling middleware','Solve 10 DSA problems (linked lists + stacks)'],
+   tools:['MongoDB Atlas','JWT','bcrypt','Mongoose'],proj:'Movie Finder — user accounts + watchlists'},
+  {w:3,title:'React Frontend',
+   tasks:['React: components, props, useState, useEffect from scratch','React Router v6: routing, navigation, protected routes','Component design: when to split vs keep together','Forms + controlled inputs + form validation','Axios: connect React frontend to your backend API','Build: Movie Finder full React frontend rebuild','Solve 10 DSA problems (trees + recursion)'],
+   tools:['React','React Router','Axios','Vite'],proj:'Movie Finder — complete React frontend'},
+  {w:4,title:'Next.js Foundations',
+   tasks:['Next.js: why over plain React — understand the difference','File-based routing + dynamic routes','Server vs Client components — the key concept','API routes inside Next.js app','SQL basics: SELECT, WHERE, JOIN, GROUP BY','PostgreSQL setup + first real queries','Solve 10 DSA problems (graphs + DP basics)'],
+   tools:['Next.js','PostgreSQL','TablePlus'],proj:'Start SkillSwap project structure'},
+  {w:5,title:'Full Stack — SkillSwap',
+   tasks:['SkillSwap backend: user profiles + skill listings API','Search + filter by skill category endpoint','Matching logic: user A has X needs Y — find user B','Deploy backend to Render free tier','Next.js frontend with clean UI','User authentication integrated end-to-end','Solve 7 DSA problems'],
+   tools:['Next.js','Node/Express','MongoDB','Render'],proj:'SkillSwap MVP — people trade skills'},
+  {w:6,title:'DevOps + Security',
+   tasks:['Docker: containers, images, Dockerfile basics','Linux CLI: filesystem, processes, grep, chmod, ssh','Nginx as reverse proxy — basic config','Environment variables best practices (.env)','Read OWASP Top 10 — understand ALL 10','SQL Injection + XSS prevention in your actual code','Solve 10 DSA problems'],
+   tools:['Docker','Linux','Nginx','OWASP ZAP'],proj:'Audit and secure all existing projects'},
+  {w:7,title:'Movie Finder + AI',
+   tasks:['Integrate OpenAI or Gemini API for smart recommendations','Add social: follow friends, shared watchlists','Reviews + ratings system with aggregation','Email notifications with Resend API','Performance: lazy loading, pagination, caching basics','Deploy Movie Finder fully on Vercel — production','Solve 10 DSA problems + read 1 system design article'],
+   tools:['OpenAI API','Vercel','Resend','Redis'],proj:'Movie Finder — production ready with AI'},
+  {w:8,title:'Portfolio + CampusConnect',
+   tasks:['Build portfolio website in Next.js + deploy live','Case studies for all 3 projects (problem → solution → impact)','Proper READMEs for all GitHub repos','CampusConnect MVP: study groups + resource sharing','Record 2-min demo video for each project','Prepare to explain each project in plain English','Plan next: WebSockets, Microservices, or AI deeper'],
+   tools:['Next.js','Vercel','Loom'],proj:'Portfolio live + CampusConnect launch'},
+];
+
+const YT_CHANNELS = [
+  ['StudioBinder','Cinematography, shot lists, pre-production'],
+  ['Film Riot','Practical filmmaking, short films, no-budget'],
+  ['Casey Faris','DaVinci Resolve — best free tutorial channel'],
+  ['MrAlexTech','Color grading, cinematic looks, LUTs'],
+  ['Lessons from the Screenplay','Story structure, scene writing'],
+  ['Tyler Mowery','Narrative filmmaking, theme and meaning'],
+  ['Just Write','Short film scriptwriting, practical advice'],
+  ['Film Courage','Acting, directing, filmmaker interviews'],
+  ['Premiere Gal','Premiere Pro workflow — best beginner channel'],
+  ['Justin Odisho','Speed ramp, keyframe animations, effects'],
+  ['Cinecom.net','VFX, creative video effects, no budget'],
+  ['Surfaced Studio','Motion graphics, film effects in Premiere'],
+  ['D4Darious','Short film editing, no-budget filmmaking'],
+];
+
+const SKILLS_MAP = [
+  ['Backend','Node.js · Express · REST API · JWT · bcrypt · Middleware'],
+  ['Frontend','React · Next.js · Hooks · Server Components · Forms'],
+  ['Database','MongoDB · Mongoose · PostgreSQL · SQL · Indexing'],
+  ['DevOps','Docker · Linux · Nginx · Render · Vercel · CI/CD'],
+  ['Security','OWASP Top 10 · SQL Injection · XSS · CSRF Prevention'],
+  ['System Design','Scalability · Load Balancing · Caching · Rate Limiting'],
+  ['AI/LLM','OpenAI API · Gemini API · Prompt Engineering · RAG'],
+  ['DSA Goal','10 problems/week × 8 weeks = 80 problems total'],
+];
+
+const FOOD_DB = [
+  {name:'Egg (1 whole)',cal:70,p:6,c:0,f:5},
+  {name:'Rice (1 cup cooked)',cal:200,p:4,c:45,f:0},
+  {name:'Chicken (100g cooked)',cal:165,p:31,c:0,f:4},
+  {name:'Dal (1 bowl)',cal:150,p:9,c:27,f:1},
+  {name:'Dosa (1 medium)',cal:120,p:3,c:22,f:3},
+  {name:'Idli (1 piece)',cal:40,p:2,c:8,f:0},
+  {name:'Upma (1 bowl)',cal:170,p:4,c:30,f:5},
+  {name:'Paratha (1 piece)',cal:200,p:4,c:32,f:7},
+  {name:'Roti / Chapati (1)',cal:80,p:3,c:15,f:2},
+  {name:'Banana (1 medium)',cal:90,p:1,c:23,f:0},
+  {name:'Oats (30g raw)',cal:110,p:4,c:19,f:2},
+  {name:'Protein Shake (1 scoop)',cal:120,p:25,c:3,f:2},
+  {name:'Curd (1 bowl 200g)',cal:120,p:8,c:10,f:4},
+  {name:'Paneer (100g)',cal:265,p:18,c:3,f:21},
+  {name:'Milk (1 glass 250ml)',cal:150,p:8,c:12,f:8},
+  {name:'Sambar (1 bowl)',cal:80,p:4,c:14,f:1},
+  {name:'Sabji/Veg curry (1 bowl)',cal:100,p:3,c:12,f:4},
+  {name:'Apple (1 medium)',cal:80,p:0,c:21,f:0},
+  {name:'Peanuts (30g)',cal:170,p:7,c:6,f:14},
+  {name:'Pesara Attu (1)',cal:130,p:7,c:20,f:3},
+  {name:'Poha (1 bowl)',cal:180,p:3,c:36,f:4},
+  {name:'Bread (2 slices)',cal:140,p:5,c:28,f:2},
+  {name:'Sprouts (1 bowl)',cal:80,p:6,c:14,f:0},
+  {name:'Boiled Potato (1 medium)',cal:130,p:3,c:30,f:0},
+];
+
+const DIET_RULES = [
+  ['MORNING SHAKE','Banana + 30g oats + 1 scoop protein = ~25g protein'],
+  ['BREAKFAST','1-2 dosa/idli + 3-4 eggs. Always add protein to any carb breakfast.'],
+  ['LUNCH','Rice max 1-1.5 cups · Chicken 150-200g · Dal 1 bowl · some veg'],
+  ['PRE-GYM','1 banana + coffee 30-45 min before. No heavy meals.'],
+  ['POST-GYM','Protein shake or 3-4 eggs within 30 min of finishing.'],
+  ['DINNER','More protein, less rice than lunch. Dal + chicken/eggs priority.'],
+  ['AVOID ❌','Carbs without protein · Unlimited rice · Skipping protein at dinner'],
+];
+
+const RULES = [
+  ['PROGRESSIVE OVERLOAD','Add +2.5kg every week on main lifts. Non-negotiable. Log it.'],
+  ['SQUAT FORM','Chest up. Sit DOWN not back. Record every Monday set. Watch it back.'],
+  ['DELOAD WEEK 5','Week 5 is planned deload — 20% lighter. Don\'t skip it. Body needs it.'],
+  ['PULL-UPS GOAL','Start every Wed with pull-up practice. Aim for 10 clean reps by Week 8.'],
+  ['NEVER MISS TWICE','Miss one day? Fine. Miss two? That becomes your new habit.'],
+  ['PROTEIN DAILY','90-110g target. Track in the Diet tab. Non-negotiable for muscle.'],
+  ['SLEEP','8 hours. Muscle is built sleeping. Not in gym.'],
+  ['THE EMOTIONAL RULE','When you feel overwhelmed — TRAIN. Not message. TRAIN.'],
+];
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+let state = {
+  checked: {},
+  fitDay: 0,
+  filmWk: 0,
+  techWk: 0,
+  formKey: 'SQUAT',
+  mealType: 'Breakfast',
+  meals: [],
+  currentPage: 'roadmap',
+};
+
+function save() {
+  try { localStorage.setItem('ph_state', JSON.stringify(state)); } catch(e){}
+}
+function load() {
+  try {
+    const d = localStorage.getItem('ph_state');
+    if (d) state = {...state, ...JSON.parse(d)};
+  } catch(e){}
+}
+
+function totalDone() {
+  return Object.values(state.checked).filter(Boolean).length;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
+  document.getElementById('p-' + id).classList.add('on');
+  const navBtns = document.querySelectorAll('.nb');
+  const pages = ['roadmap','fitness','film','tech','diet'];
+  const idx = pages.indexOf(id);
+  if(idx >= 0) navBtns[idx].classList.add('on');
+  state.currentPage = id;
+  save();
+  window.scrollTo(0,0);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CHECK ROWS
+// ═══════════════════════════════════════════════════════════════
+function toggle(key) {
+  state.checked[key] = !state.checked[key];
+  save();
+  renderCheck(key);
+  document.getElementById('total-done').textContent = totalDone();
+}
+
+function renderCheck(key) {
+  const cb = document.querySelector(`[data-key="${key}"] .cb`);
+  const cl = document.querySelector(`[data-key="${key}"] .cl`);
+  if(!cb) return;
+  if(state.checked[key]) { cb.classList.add('on'); if(cl) cl.classList.add('done'); }
+  else { cb.classList.remove('on'); if(cl) cl.classList.remove('done'); }
+}
+
+function checkRow(key, label, note='') {
+  const done = !!state.checked[key];
+  return `<div class="cr" data-key="${key}" onclick="toggle('${key}')">
+    <div class="cb${done?' on':''}"></div>
+    <div>
+      <div class="cl${done?' done':''}">${label}</div>
+      ${note ? `<div class="cn">${note}</div>` : ''}
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ROADMAP
+// ═══════════════════════════════════════════════════════════════
+function renderRoadmap() {
+  // Timeline
+  const tl = document.getElementById('timeline');
+  tl.innerHTML = PROG.map((p,i) => `
+    <div class="wk-dot">
+      <div class="wk-circle${i===7?' on':''}">${p.w}</div>
+      <div class="wk-label">${p.phase.split(' ')[0]}</div>
+    </div>
+  `).join('');
+
+  // Progression table
+  document.getElementById('prog-table').innerHTML = PROG.map(p => `
+    <tr>
+      <td><strong>W${p.w}</strong></td>
+      <td>${p.sq}</td>
+      <td>${p.bench}</td>
+      <td>${p.dead}</td>
+      <td><span class="badge">${p.phase}</span></td>
+    </tr>
+  `).join('');
+
+  // Form chips
+  const fk = Object.keys(FORMS);
+  document.getElementById('form-chips').innerHTML = fk.map(k =>
+    `<button class="chip${state.formKey===k?' on':''}" onclick="setForm('${k}')">${k}</button>`
+  ).join('');
+  renderFormContent();
+
+  // Rules
+  document.getElementById('rules-list').innerHTML = RULES.map(([t,d],i) => `
+    <div style="padding:11px 0;border-bottom:1px solid var(--b2)">
+      <div style="font-size:9px;font-weight:800;letter-spacing:3px;color:#888;margin-bottom:4px">${i+1}. ${t}</div>
+      <div style="font-size:12px;color:#555;font-style:italic">${d}</div>
+    </div>
+  `).join('');
+}
+
+function setForm(key) {
+  state.formKey = key;
+  document.querySelectorAll('#form-chips .chip').forEach((c,i) => {
+    const keys = Object.keys(FORMS);
+    c.classList.toggle('on', keys[i] === key);
+  });
+  renderFormContent();
+}
+
+function renderFormContent() {
+  const f = FORMS[state.formKey];
+  document.getElementById('form-content').innerHTML = `
+    <div style="margin-bottom:14px">
+      ${f.cues.map(([title,text]) => `
+        <div class="form-step">
+          <div class="step-num">•</div>
+          <div>
+            <div style="font-size:11px;font-weight:800;color:#888;letter-spacing:1px;margin-bottom:2px">${title}</div>
+            <div style="font-size:13px;color:var(--t);line-height:1.5">${text}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div style="font-size:9px;font-weight:800;letter-spacing:3px;color:var(--m);margin-bottom:8px">WEIGHT PROGRESSION</div>
+    ${f.prog.map((p,i) => `
+      <div style="font-size:12px;color:#555;padding:6px 0;border-bottom:1px solid var(--b2);font-style:italic">
+        <strong style="color:var(--m);margin-right:6px">${i+1}.</strong>${p}
+      </div>
+    `).join('')}
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FITNESS
+// ═══════════════════════════════════════════════════════════════
+function renderFitness() {
+  // Day chips
+  document.getElementById('day-chips').innerHTML = DAYS.map((d,i) =>
+    `<button class="chip${state.fitDay===i?' on':''}" onclick="setFitDay(${i})">${d.day}</button>`
+  ).join('');
+  renderDayCard();
+  renderWeekGrid();
+}
+
+function setFitDay(i) {
+  state.fitDay = i;
+  document.querySelectorAll('#day-chips .chip').forEach((c,j) => c.classList.toggle('on', j===i));
+  renderDayCard();
+  renderWeekGrid();
+}
+
+function renderDayCard() {
+  const d = DAYS[state.fitDay];
+  document.getElementById('day-card').innerHTML = `
+    <div class="card card-hi">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+        <div>
+          <div style="font-size:26px;font-weight:900;color:var(--w);line-height:1">${d.day}</div>
+          <div style="font-size:16px;font-weight:800;margin-top:3px">${d.label}</div>
+          <div style="font-size:11px;color:var(--m);margin-top:3px;font-style:italic">${d.focus}</div>
+        </div>
+        <span class="badge badge-w">${d.type}</span>
+      </div>
+      ${d.ex.map(([name,sets,note],i) =>
+        checkRow(`fit-${state.fitDay}-${i}`, `${name} — ${sets}`, note)
+      ).join('')}
+      <div class="dv"></div>
+      <div style="font-size:9px;font-weight:800;letter-spacing:3px;color:var(--m);margin-bottom:5px">CARDIO</div>
+      <div style="font-size:12px;color:#555;font-style:italic">${d.cardio}</div>
+    </div>
+  `;
+}
+
+function renderWeekGrid() {
+  document.getElementById('week-grid').innerHTML = DAYS.map((d,i) => `
+    <div onclick="setFitDay(${i})" style="
+      border:1px solid ${state.fitDay===i?'#555':'var(--b)'};
+      padding:8px 4px;text-align:center;cursor:pointer;
+      background:${state.fitDay===i?'#1a1a1a':'transparent'};border-radius:6px">
+      <div style="font-size:10px;font-weight:800;color:${state.fitDay===i?'var(--w)':'var(--m)'}">${d.day}</div>
+      <div style="font-size:8px;color:#333;margin-top:3px">${d.type.split(' ')[0].substring(0,4)}</div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FILM
+// ═══════════════════════════════════════════════════════════════
+function renderFilm() {
+  document.getElementById('film-chips').innerHTML = FILM_WEEKS.map((w,i) =>
+    `<button class="chip${state.filmWk===i?' on':''}" onclick="setFilmWk(${i})">W${w.w}</button>`
+  ).join('');
+  renderFilmCard();
+
+  document.getElementById('yt-list').innerHTML = YT_CHANNELS.map(([ch,desc]) => `
+    <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--b2);align-items:flex-start">
+      <div style="min-width:140px;font-size:12px;font-weight:800;color:var(--w)">${ch}</div>
+      <div style="font-size:11px;color:var(--m);font-style:italic">${desc}</div>
+    </div>
+  `).join('');
+}
+
+function setFilmWk(i) {
+  state.filmWk = i;
+  document.querySelectorAll('#film-chips .chip').forEach((c,j) => c.classList.toggle('on', j===i));
+  renderFilmCard();
+}
+
+function renderFilmCard() {
+  const fw = FILM_WEEKS[state.filmWk];
+  document.getElementById('film-card').innerHTML = `
+    <div class="card card-hi">
+      <div style="font-size:9px;letter-spacing:3px;color:var(--m);margin-bottom:3px">WEEK ${fw.w} OF 8</div>
+      <div style="font-size:18px;font-weight:800;margin-bottom:3px">${fw.title}</div>
+      <div style="font-size:11px;color:var(--m);font-style:italic;margin-bottom:14px">Goal: ${fw.goal}</div>
+      <div class="sec-label">TASKS THIS WEEK</div>
+      ${fw.tasks.map((t,i) => checkRow(`film-${state.filmWk}-${i}`, t)).join('')}
+      <div class="dv"></div>
+      <div class="sec-label">WATCH THIS WEEK</div>
+      ${fw.yt.map(([ch,vid]) => `
+        <div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--b2);align-items:flex-start">
+          <div style="width:5px;height:5px;background:var(--w);border-radius:50%;flex-shrink:0;margin-top:7px"></div>
+          <div><strong style="font-size:12px">${ch}</strong><span style="color:var(--m);font-size:12px"> — ${vid}</span></div>
+        </div>
+      `).join('')}
+      <div class="dv"></div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <div style="font-size:9px;font-weight:800;letter-spacing:3px;color:var(--m)">DELIVER:</div>
+        <div style="font-size:13px;font-weight:700">${fw.deliver}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// TECH
+// ═══════════════════════════════════════════════════════════════
+function renderTech() {
+  document.getElementById('tech-chips').innerHTML = TECH_WEEKS.map((w,i) =>
+    `<button class="chip${state.techWk===i?' on':''}" onclick="setTechWk(${i})">W${w.w}</button>`
+  ).join('');
+  renderTechCard();
+
+  document.getElementById('skills-list').innerHTML = SKILLS_MAP.map(([area,skills]) => `
+    <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--b2);align-items:flex-start">
+      <div style="min-width:110px;font-size:11px;font-weight:800;color:var(--w)">${area}</div>
+      <div style="font-size:11px;color:var(--m)">${skills}</div>
+    </div>
+  `).join('');
+}
+
+function setTechWk(i) {
+  state.techWk = i;
+  document.querySelectorAll('#tech-chips .chip').forEach((c,j) => c.classList.toggle('on', j===i));
+  renderTechCard();
+}
+
+function renderTechCard() {
+  const tw = TECH_WEEKS[state.techWk];
+  document.getElementById('tech-card').innerHTML = `
+    <div class="card card-hi">
+      <div style="font-size:9px;letter-spacing:3px;color:var(--m);margin-bottom:3px">WEEK ${tw.w} OF 8</div>
+      <div style="font-size:18px;font-weight:800;margin-bottom:14px">${tw.title}</div>
+      <div class="sec-label">TASKS — COMPLETE ALL ${tw.tasks.length}</div>
+      ${tw.tasks.map((t,i) => checkRow(`tech-${state.techWk}-${i}`, t)).join('')}
+      <div class="dv"></div>
+      <div class="sec-label" style="margin-bottom:8px">TOOLS</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">
+        ${tw.tools.map(t => `<span class="badge badge-w">${t}</span>`).join('')}
+      </div>
+      <div style="font-size:9px;font-weight:800;letter-spacing:3px;color:var(--m);margin-bottom:4px">PROJECT FOCUS</div>
+      <div style="font-size:12px;color:#555;font-style:italic">${tw.proj}</div>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DIET
+// ═══════════════════════════════════════════════════════════════
+const TARGETS = {cal:2200, p:100, c:250, f:60};
+
+function calcTotals() {
+  return state.meals.reduce((a,m) => ({
+    cal: a.cal + m.cal, p: a.p + m.p, c: a.c + m.c, f: a.f + m.f
+  }), {cal:0, p:0, c:0, f:0});
+}
+
+function renderDiet() {
+  // Meal type chips
+  const types = ['Breakfast','Lunch','Snack','Post-Gym','Dinner'];
+  document.getElementById('meal-type-chips').innerHTML = types.map(t =>
+    `<button class="chip${state.mealType===t?' on':''}" onclick="setMealType('${t}')">${t}</button>`
+  ).join('');
+
+  // Diet rules
+  document.getElementById('diet-rules').innerHTML = DIET_RULES.map(([m,r]) => `
+    <div style="display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--b2)">
+      <div style="min-width:110px;font-size:9px;font-weight:800;letter-spacing:1px;color:${m.includes('❌')?'#666':'var(--m)'}">${m}</div>
+      <div style="font-size:12px;color:#555;font-style:italic">${r}</div>
+    </div>
+  `).join('');
+
+  renderMacros();
+  renderFoodSearch();
+  renderMealLog();
+}
+
+function setMealType(t) {
+  state.mealType = t;
+  document.querySelectorAll('#meal-type-chips .chip').forEach((c,i) => {
+    const types = ['Breakfast','Lunch','Snack','Post-Gym','Dinner'];
+    c.classList.toggle('on', types[i] === t);
+  });
+}
+
+function renderMacros() {
+  const tot = calcTotals();
+  const items = [
+    ['CALORIES', Math.round(tot.cal), TARGETS.cal, 'kcal'],
+    ['PROTEIN', Math.round(tot.p), TARGETS.p, 'g'],
+    ['CARBS', Math.round(tot.c), TARGETS.c, 'g'],
+    ['FAT', Math.round(tot.f), TARGETS.f, 'g'],
+  ];
+  document.getElementById('macro-display').innerHTML = items.map(([l,v,max,u]) => `
+    <div class="macro-box">
+      <div class="ml">${l}</div>
+      <div class="mv">${v}<span class="mu">${u}</span></div>
+      <div class="mt">/ ${max}${u}</div>
+      <div class="pb-wrap"><div class="pb" style="width:${Math.min(100,(v/max)*100)}%"></div></div>
+    </div>
+  `).join('');
+}
+
+function renderFoodSearch() {
+  const q = document.getElementById('food-search').value.toLowerCase();
+  const filtered = q ? FOOD_DB.filter(f => f.name.toLowerCase().includes(q)) : [];
+  const wrap = document.getElementById('food-list-wrap');
+  if(!filtered.length) { wrap.innerHTML=''; return; }
+  wrap.innerHTML = `<div class="food-list">${
+    filtered.slice(0,8).map(f => `
+      <div class="food-item" onclick="selectFood(${JSON.stringify(f).replace(/"/g,'&quot;')})">
+        <span class="food-name">${f.name}</span>
+        <div class="food-info">${f.cal}kcal<br/>${f.p}g P</div>
+      </div>
+    `).join('')
+  }</div>`;
+}
+
+let selectedFood = null;
+
+function selectFood(f) {
+  selectedFood = f;
+  document.getElementById('food-search').value = f.name;
+  document.getElementById('food-list-wrap').innerHTML = `
+    <div class="ai-box">
+      <div class="ai-name">${f.name}</div>
+      <div class="ai-macros">
+        <span>${f.cal} <strong>kcal</strong></span>
+        <span>${f.p}g <strong>protein</strong></span>
+        <span>${f.c}g <strong>carbs</strong></span>
+        <span>${f.f}g <strong>fat</strong></span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="font-size:12px;color:var(--m)">Qty:</span>
+        <input type="number" id="food-qty" value="1" min="0.5" max="20" step="0.5" style="width:70px"/>
+        <button class="btn btn-sm" onclick="addSelectedFood()">ADD</button>
+        <button class="btn btn-sm btn-ghost" onclick="clearFoodSearch()">✕</button>
+      </div>
+    </div>
+  `;
+}
+
+function addSelectedFood() {
+  if(!selectedFood) return;
+  const qty = parseFloat(document.getElementById('food-qty').value) || 1;
+  addMeal(selectedFood, qty);
+  clearFoodSearch();
+}
+
+function clearFoodSearch() {
+  selectedFood = null;
+  document.getElementById('food-search').value = '';
+  document.getElementById('food-list-wrap').innerHTML = '';
+}
+
+async function doAI() {
+  const txt = document.getElementById('ai-input').value.trim();
+  if(!txt) return;
+  const btn = document.querySelector('.row-input .btn');
+  btn.textContent = '...';
+  btn.disabled = true;
+  document.getElementById('ai-result').innerHTML = '<div style="font-size:12px;color:var(--m);padding:10px 0;font-style:italic">Scanning...</div>';
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:300,
+        messages:[{role:'user',content:`Give nutrition info for: "${txt}". Return ONLY valid JSON, no extra text, no markdown:
+{"name":"food description","cal":total_calories,"p":protein_grams,"c":carbs_grams,"f":fat_grams,"serving":"what this covers"}`}]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content?.[0]?.text || '';
+    const clean = raw.replace(/```json|```/g,'').trim();
+    const food = JSON.parse(clean);
+    let aiFood = food;
+    document.getElementById('ai-result').innerHTML = `
+      <div class="ai-box">
+        <div class="ai-name">${food.name}</div>
+        <div class="ai-macros">
+          <span>${food.cal} <strong>kcal</strong></span>
+          <span>${food.p}g <strong>protein</strong></span>
+          <span>${food.c}g <strong>carbs</strong></span>
+          <span>${food.f}g <strong>fat</strong></span>
+          ${food.serving ? `<span style="font-style:italic;color:#444">per ${food.serving}</span>`:''}
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span style="font-size:12px;color:var(--m)">Qty:</span>
+          <input type="number" id="ai-qty" value="1" min="0.5" max="20" step="0.5" style="width:70px"/>
+          <button class="btn btn-sm" onclick="addAIFood()">ADD</button>
+          <button class="btn btn-sm btn-ghost" onclick="clearAI()">✕</button>
+        </div>
+      </div>
+    `;
+    window._aiFood = food;
+  } catch(e) {
+    document.getElementById('ai-result').innerHTML = '<div style="font-size:12px;color:#555;padding:10px 0;font-style:italic">Couldn\'t parse that. Try a simpler description.</div>';
+  }
+  btn.textContent = 'SCAN';
+  btn.disabled = false;
+}
+
+function addAIFood() {
+  if(!window._aiFood) return;
+  const qty = parseFloat(document.getElementById('ai-qty').value) || 1;
+  addMeal(window._aiFood, qty);
+  clearAI();
+}
+
+function clearAI() {
+  document.getElementById('ai-result').innerHTML = '';
+  document.getElementById('ai-input').value = '';
+  window._aiFood = null;
+}
+
+function addMeal(food, qty) {
+  state.meals.push({
+    id: Date.now(),
+    name: food.name,
+    type: state.mealType,
+    qty,
+    cal: Math.round(food.cal * qty),
+    p: Math.round(food.p * qty * 10)/10,
+    c: Math.round(food.c * qty * 10)/10,
+    f: Math.round(food.f * qty * 10)/10,
+  });
+  save();
+  renderMacros();
+  renderMealLog();
+}
+
+function deleteMeal(id) {
+  state.meals = state.meals.filter(m => m.id !== id);
+  save();
+  renderMacros();
+  renderMealLog();
+}
+
+function clearMeals() {
+  state.meals = [];
+  save();
+  renderMacros();
+  renderMealLog();
+}
+
+function renderMealLog() {
+  const card = document.getElementById('meal-log-card');
+  if(!state.meals.length) { card.style.display='none'; return; }
+  card.style.display='block';
+  const types = ['Breakfast','Lunch','Snack','Post-Gym','Dinner'];
+  let html = '';
+  types.forEach(t => {
+    const ms = state.meals.filter(m => m.type === t);
+    if(!ms.length) return;
+    html += `<div style="font-size:9px;font-weight:800;letter-spacing:3px;color:var(--m);margin:12px 0 8px">${t.toUpperCase()}</div>`;
+    ms.forEach(m => {
+      html += `
+        <div class="meal-row">
+          <div style="flex:1">
+            <div style="font-size:13px">${m.name}${m.qty!==1?` <span style="color:var(--m);font-size:11px">×${m.qty}</span>`:''}</div>
+            <div style="font-size:11px;color:var(--m);margin-top:2px">${m.cal}kcal · ${m.p}g P · ${m.c}g C · ${m.f}g F</div>
+          </div>
+          <button class="meal-del" onclick="deleteMeal(${m.id})">×</button>
+        </div>
+      `;
+    });
+  });
+  document.getElementById('meal-log').innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+function init() {
+  load();
+
+  renderRoadmap();
+  renderFitness();
+  renderFilm();
+  renderTech();
+  renderDiet();
+
+  document.getElementById('total-done').textContent = totalDone();
+
+  // Food search live
+  document.getElementById('food-search').addEventListener('input', renderFoodSearch);
+
+  // Restore page
+  if(state.currentPage) showPage(state.currentPage);
+}
+
+init();
+</script>
+</body>
+</html>
